@@ -10,46 +10,41 @@
     <!-- Navigation -->
 
     <nav>
-      <div class="grey darken-2 nav-wrapper">
-        <a href="#" class="brand-logo center">GabbL.</a>
+      <div class="deep-orange darken-4 nav-wrapper">
+        <a href="/" class="brand-logo center">GabbL.</a>
         <ul id="nav-mobile" class="left hide-on-med-and-down">
-          <li><a href="#">Signup</a></li>
-          <li><a href="#">Login</a></li>
+          <li><a href="/signup">Signup</a></li>
+          <li><a href="/login">Login</a></li>
         </ul>
       </div>
     </nav>
 
     <div class="row container">
-      <form class="col s12">
+      <form class="col s12" action="/signupButton" method="post">
         <div class="row">
           <div class="input-field col s6">
-            <input id="first_name" type="text" class="validate" placeholder="First Name">
-            <label for="first_name"></label>
+            <input id="username" name="userName" type="text" class="validate" placeholder="Username">
           </div>
           <div class="input-field col s6">
-            <input id="last_name" type="text" class="validate" placeholder="Last Name">
-            <label for="last_name"></label>
+            <input id="first_name" name="firstName" type="text" class="validate" placeholder="Display Name">
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input id="username" type="text" class="validate" placeholder="Username">
-            <label for="username"></label>
+            <input id="password" type="password" name="passWord" class="validate" placeholder="Password">
           </div>
           <div class="input-field col s6">
-            <input id="password" type="password" class="validate" placeholder="Password">
-            <label for="password"></label>
+            <input id="confirm_password" name="confirmPass" type="password" class="validate" placeholder="Confirm Password">
           </div>
-          <div class="">
-            <!-- <input type="submit" class="btn" value="Sign Up"> -->
-            <button type="submit" class="btn">Sign Up</button>
-          </div>
+        </div>
+        <div class="row">
+          <button type="submit" class="btn deep-orange darken-4">Sign Up</button>
         </div>
       </form>
     </div>
-    {{#users}}
+    <!-- {{#users}}
       <h1>username: {{username}} password: {{password}}</h1>
-    {{/users}}
+    {{/users}} -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
   </body>
 </html>

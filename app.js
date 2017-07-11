@@ -4,9 +4,10 @@ const mustacheExpress = require('mustache-express');
 const sequelize = require('sequelize');
 const path = require('path');
 const bodyParser = require('body-parser');
-const validator = require('validator');
 const expressValidator = require('express-validator');
 const parseurl = require('parseurl');
+const router = require('./routes/router');
+const session = require('express-session');
 
 const app = express();
 
@@ -18,20 +19,14 @@ app.set('views', './views');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(expressValidator());
 
-app.get('/', function(req, res) {
-  res.render('home', {});
-});
+app.use(session({
+  secret: 'top secret',
+  resave: false,
+  saveUninitialized: true
+}));
 
-app.get('/signup', function(req, res) {
-  models.User.findAll().then(function(users) {
-    console.log(users);
-    res.render('signup', {users : users});
-  });
-});
-
-app.get('/login', function(req, res) {
-  res.render('login', {});
-});
+router(app);
 
 app.listen(3000);
