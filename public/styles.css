@@ -3,3 +3,13 @@
   border-radius: 50%;
   font-size: 18px;
 }
+.flex {
+  display: flex;
+  justify-content: space-around;
+}
+.buttons {
+  margin: 30px;
+}
+.borderline {
+  border-bottom: solid black 2px;
+}

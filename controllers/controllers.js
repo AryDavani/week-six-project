@@ -27,10 +27,7 @@ module.exports = {
   },
 
   signupButton: function(req, res) {
-    //validate
-    // req.checkBody('userName', 'Please choose a username').notEmpty();
-    // req.checkBody('passWord', 'Please choose a password').notEmpty();
-    // 
+
     let firstName = req.body.firstName;
     let userName = req.body.userName;
     let passWord = req.body.passWord;

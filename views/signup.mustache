@@ -19,22 +19,24 @@
       </div>
     </nav>
 
+    <!-- Signup form -->
+
     <div class="row container">
       <form class="col s12" action="/signupButton" method="post">
         <div class="row">
           <div class="input-field col s6">
-            <input id="username" name="userName" type="text" class="validate" placeholder="Username">
+            <input id="username" name="userName" type="text" class="validate" placeholder="Username" required>
           </div>
           <div class="input-field col s6">
-            <input id="first_name" name="firstName" type="text" class="validate" placeholder="Display Name">
+            <input id="first_name" name="firstName" type="text" class="validate" placeholder="Display Name" required>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input id="password" type="password" name="passWord" class="validate" placeholder="Password">
+            <input id="password" type="password" name="passWord" class="validate" placeholder="Password" required>
           </div>
           <div class="input-field col s6">
-            <input id="confirm_password" name="confirmPass" type="password" class="validate" placeholder="Confirm Password">
+            <input id="confirm_password" name="passWord2" type="password" class="validate" placeholder="Confirm Password" required>
           </div>
         </div>
         <div class="row">
@@ -42,9 +44,7 @@
         </div>
       </form>
     </div>
-    <!-- {{#users}}
-      <h1>username: {{username}} password: {{password}}</h1>
-    {{/users}} -->
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
   </body>
 </html>

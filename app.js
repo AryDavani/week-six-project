@@ -1,3 +1,5 @@
+'use strict';
+
 const models = require('./models');
 const express = require('express');
 const mustacheExpress = require('mustache-express');
@@ -24,7 +26,7 @@ app.use(expressValidator());
 app.use(session({
   secret: 'top secret',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false
 }));
 
 router(app);

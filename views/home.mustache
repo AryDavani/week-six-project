@@ -19,15 +19,34 @@
           <li><a href="/login">Login</a></li>
         </ul>
         <ul class="right hide-on-med-and-down">
-          <li><i class="material-icons small right">perm_identity</i></li>
           <li><span class="first-name white-text">{{name}}</span></li>
+          <li><i class="container material-icons small right">perm_identity</i></li>
         </ul>
-
       </div>
     </nav>
 
     <!--  -->
+    <section class="container">
+      <div class="flex buttons">
+        <form class="" action="/home" method="post">
+          <button class="btn deep-orange darken-4" type="submit" name="button"><i class="material-icons small">home</i></button>
+        </form>
+        <form class="" action="/message" method="post">
+          <button class="btn deep-orange darken-4" type="submit" name="button"><i class="material-icons small">message</i></button>
+        </form>
+        <form class="" action="/logout" method="post">
+          <button class="btn deep-orange darken-4" type="submit" name="button">Logout</button>
+        </form>
+      </div>
+    </section>
 
+    <main class="container">
+      <div class="center-align borderline">
+        <strong>{{name}}</strong>
+        <p>{{message}}</p>
+        <p>{{createdAt}}</p>
+      </div>
+    </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
   </body>
