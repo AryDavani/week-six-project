@@ -12,49 +12,54 @@ const sequelize = require('sequelize');
 module.exports = {
 
   signup: function(req, res) {
-    console.log(req.body);
-    models.User.findAll().then(function(users) {
-      res.render('signup', {users : users});
-    });
+    res.render('signup');
   },
 
   home: function(req, res) {
-    res.render('home', {});
+    models.Message.findAll().then(function(results) {
+      console.log(results);
+      res.render('home', { results: results });
+    });
   },
 
   login: function(req, res) {
-    res.render('login', {});
+    res.render('login');
   },
 
-  signupButton: function(req, res) {
+  logoutButton: function(req, res) {
+    req.session.destroy();
+    res.redirect('/login');
+  },
 
-    let firstName = req.body.firstName;
-    let userName = req.body.userName;
-    let passWord = req.body.passWord;
-    let confirmPass = req.body.confirmPass;
-
+  signupButton: function(req, res, next) {
+    
     models.User.create({
-      username: userName,
-      password: passWord,
-      name: firstName
+      username: req.body.userName,
+      password: req.body.passWord,
+      name: req.body.firstName
     }).then(function() {
       res.redirect('/login');
-    })
+    });
   },
 
   loginButton: function(req, res) {
-    let userName = req.body.userName;
-    let passWord = req.body.passWord;
-
-    models.User.findOne({ username: userName, password: passWord }).then(function(result) {
-      if (result.username === userName && result.password === passWord) {
-        console.log('correct');
+    let error = '';
+    models.User.findOne({ where: { username: req.body.userName, password: req.body.passWord }}).then(function(result) {
+      if (result) {
+        req.session.UserId = result.id;
         res.redirect('/');
       } else {
-        console.log('wrong username/password');
+        return res.redirect('/login');
       };
     });
+  },
 
+  messageButton: function(req, res) {
+    models.Message.create({
+      text: req.body.textarea,
+      user_id: req.session.userId
+    }).then(function() {
+      res.redirect('/');
+    });
   }
-
 }

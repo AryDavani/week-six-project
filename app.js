@@ -13,21 +13,28 @@ const session = require('express-session');
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "public")));
-
+// set views
 app.engine('mustache', mustacheExpress());
 app.set('view engine', 'mustache');
 app.set('views', './views');
 
+// set middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(session({ secret: 'top secret', resave: false, saveUninitialized: false }));
 
-app.use(session({
-  secret: 'top secret',
-  resave: false,
-  saveUninitialized: false
-}));
+app.use(function(req, res, next){
+  let pathname = parseurl(req).pathname
+  let sess = req.session;
+
+  if (!sess.UserId && (!pathname.includes('/user'))){
+    res.redirect('/user/login');
+  } else {
+    next();
+  }
+});
 
 router(app);
 

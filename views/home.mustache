@@ -27,25 +27,28 @@
 
     <!--  -->
     <section class="container">
-      <div class="flex buttons">
+      <div class="flex">
         <form class="" action="/home" method="post">
-          <button class="btn deep-orange darken-4" type="submit" name="button"><i class="material-icons small">home</i></button>
-        </form>
-        <form class="" action="/message" method="post">
-          <button class="btn deep-orange darken-4" type="submit" name="button"><i class="material-icons small">message</i></button>
+          <button class="buttons btn deep-orange darken-4" type="submit" name="button"><i class="material-icons small">home</i></button>
         </form>
         <form class="" action="/logout" method="post">
-          <button class="btn deep-orange darken-4" type="submit" name="button">Logout</button>
+          <button class="buttons btn deep-orange darken-4" type="submit" name="button">Logout</button>
+        </form>
+        <form class="flex" action="/message" method="post">
+          <textarea class="buttons" name="textarea" rows="8" cols="80"></textarea>
+          <button class="buttons btn deep-orange darken-4" type="submit" name="button">Post!</button>
         </form>
       </div>
     </section>
 
     <main class="container">
+      {{#results}}
       <div class="center-align borderline">
-        <strong>{{name}}</strong>
-        <p>{{message}}</p>
+        <strong>{{id}}</strong>
+        <p>{{text}}</p>
         <p>{{createdAt}}</p>
       </div>
+      {{/results}}
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>

@@ -20,16 +20,22 @@
     </nav>
 
     <div class="row container">
-      <form class="col s12" action="/loginButton" method="post">
+      <br>
+      <p>Please Log In</p>
+      <br>
+      {{#error}}
+        <p>{{.}}</p>
+      {{/error}}
+      <form class="col s12" action="/login" method="post">
         <div class="row">
           <div class="input-field col s6">
-            <input id="username" type="text" name="userName" class="validate" placeholder="Username">
+            <input id="username" type="text" name="userName" class="validate" placeholder="Username" required>
             <label for="username"></label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
-            <input id="password" type="password" name="passWord" class="validate" placeholder="Password">
+            <input id="password" type="password" name="passWord" class="validate" placeholder="Password" required>
             <label for="password"></label>
           </div>
         </div>
