@@ -12,44 +12,54 @@ const sequelize = require('sequelize');
 module.exports = {
 
   signup: function(req, res) {
-    res.render('signup');
+    res.render('signup', {});
   },
 
   home: function(req, res) {
     models.Message.findAll().then(function(results) {
       console.log(results);
-      res.render('home', { results: results });
+      res.render('home', { results });
     });
   },
 
   login: function(req, res) {
-    res.render('login');
+    res.render('login', {});
   },
 
   logoutButton: function(req, res) {
     req.session.destroy();
-    res.redirect('/login');
+    res.redirect('/user/login');
   },
 
   signupButton: function(req, res, next) {
-    
-    models.User.create({
-      username: req.body.userName,
-      password: req.body.passWord,
-      name: req.body.firstName
-    }).then(function() {
-      res.redirect('/login');
+    req.checkBody('password2', 'Passwords dont match').equals(req.body.passWord);
+
+    req.getValidationResult().then(function(result) {
+      if (!result.isEmpty()) {
+        let error = result.toArray();
+        res.render('signup', { error });
+      } else {
+        models.User.create({
+          username: req.body.userName,
+          password: req.body.passWord,
+          name: req.body.firstName
+        }).then(function() {
+          res.redirect('/user/login');
+        });
+      }
     });
+
   },
 
   loginButton: function(req, res) {
-    let error = '';
     models.User.findOne({ where: { username: req.body.userName, password: req.body.passWord }}).then(function(result) {
       if (result) {
         req.session.UserId = result.id;
+        req.session.UserName = result.name;
         res.redirect('/');
       } else {
-        return res.redirect('/login');
+        let error = ['wrong username/password'];
+        return res.render('login', { error });
       };
     });
   },

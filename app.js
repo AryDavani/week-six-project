@@ -26,7 +26,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(session({ secret: 'top secret', resave: false, saveUninitialized: false }));
 
 app.use(function(req, res, next){
-  let pathname = parseurl(req).pathname
+  let pathname = parseurl(req).pathname;
   let sess = req.session;
 
   if (!sess.UserId && (!pathname.includes('/user'))){
