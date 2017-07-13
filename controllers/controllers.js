@@ -2,23 +2,32 @@ const models = require('../models');
 const session = require('express-session');
 const sequelize = require('sequelize');
 
-// middleware checks errors
-// signup button creates new user in db
-// login button checks if username/password is in db and stores session id
-// post button creates a post/message in the db tied to a user with foreign key
-// like button posts on association table a connection of users-to-messages
 
 
 module.exports = {
+
+  backslash: function(req, res) {
+    models.User.findOne({
+      where: {
+        id: req.session.userId
+      }
+    }).then(function(result) {
+      res.redirect('/gabble/' + result.username);
+    });
+  },
 
   signup: function(req, res) {
     res.render('signup', {});
   },
 
   home: function(req, res) {
-    models.Message.findAll().then(function(results) {
-      console.log(results);
-      res.render('home', { results });
+    console.log('HOMEPAGE');
+    models.Message.findAll({ include: [{
+      model: models.User,
+      as: 'users'
+    }]}).then(function(results) {
+    console.log(results);
+    res.render('home', {results});
     });
   },
 
@@ -31,15 +40,11 @@ module.exports = {
     res.redirect('/user/login');
   },
 
-  signupButton: function(req, res, next) {
-    req.checkBody('password2', 'Passwords dont match').equals(req.body.passWord);
-
-    req.getValidationResult().then(function(result) {
-      console.log(result);
-      if (!result.isEmpty()) {
-        let error = result;
-        res.render('signup', { error });
-      } else {
+  signupButton: function(req, res) {
+    // req.checkBody('password2', 'Passwords dont match').equals(req.body.passWord);
+    //
+    // req.getValidationResult().then(function(result) {
+    //   if (result.isEmpty()) {
         models.User.create({
           username: req.body.userName,
           password: req.body.passWord,
@@ -47,30 +52,50 @@ module.exports = {
         }).then(function() {
           res.redirect('/user/login');
         });
-      }
-    });
 
   },
 
   loginButton: function(req, res) {
-    models.User.findOne({ where: { username: req.body.userName, password: req.body.passWord }}).then(function(result) {
-      if (result) {
-        req.session.UserId = result.id;
-        req.session.UserName = result.name;
-        res.redirect('/');
-      } else {
-        let error = ['wrong username/password'];
-        return res.render('login', { error });
-      };
-    });
+    if(req.body.userName && req.body.passWord){
+      models.User.findOne({
+        where: {
+          username: req.body.userName, password: req.body.passWord
+        }
+      }).then(function(user){
+        console.log("IS THE SESSION GETTING SET?");
+        req.session.userId = user.id;
+        req.session.username = user.username;
+        res.redirect('/gabble/' + user.username);
+      });
+    } else {
+      console.log('please provide credentials');
+      res.redirect('/user/login');
+    }
+    // models.User.findOne({ where: { username: req.body.userName, password: req.body.passWord }}).then(function(result) {
+    //   if (result) {
+    //     let userPath = '/' + result.username;
+    //     req.session.userId = result.id;
+    //     req.session.name = result.name;
+    //     console.log('session id', req.session.userId);
+    //     res.redirect('detail/' + userPath);
+    //   } else {
+    //     console.log('error');
+    //     let error = ['wrong username/password'];
+    //     // res.redirect('/user/login');
+    //   }
+    // });
   },
 
-  messageButton: function(req, res) {
+  postButton: function(req, res) {
     models.Message.create({
       text: req.body.textarea,
       user_id: req.session.userId
     }).then(function() {
       res.redirect('/');
     });
+  },
+
+  likeButton: function(req, res) {
+
   }
 }

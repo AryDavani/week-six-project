@@ -5,12 +5,11 @@
     <title>GabbL - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/static/styles.css">
   </head>
   <body>
 
     <!-- Navigation -->
-
     <nav>
       <div class="deep-orange darken-4 nav-wrapper">
         <a href="/" class="brand-logo center">GabbL.</a>
@@ -26,27 +25,33 @@
     </nav>
 
     <!--  -->
-    <section class="container">
-      <div class="flex">
-        <form class="" action="/home" method="post">
-          <button class="buttons btn deep-orange darken-4" type="submit" name="button"><i class="material-icons small">home</i></button>
-        </form>
+
+    <div class="container">
+      <div class="flexIt">
+
         <form class="" action="/logout" method="post">
           <button class="buttons btn deep-orange darken-4" type="submit" name="button">Logout</button>
         </form>
-        <form class="flex" action="/message" method="post">
+
+        <form class="flexIt" action="/post" method="post">
           <textarea class="buttons" name="textarea" rows="8" cols="80"></textarea>
           <button class="buttons btn deep-orange darken-4" type="submit" name="button">Post!</button>
         </form>
+
       </div>
-    </section>
+    </div>
 
     <main class="container">
+      <h2 class="center-align">Gabs</h2>
       {{#results}}
       <div class="center-align borderline">
-        <strong>{{id}}</strong>
-        <p>{{text}}</p>
+        <p>Post by <strong>{{users.name}}</strong></p>
+        <p class="blue-text text-darken-3">{{text}}</p>
         <p>{{createdAt}}</p>
+        <form class="" action="likeButton" method="post">
+          <button class="btn" type="submit" name="button"><i class="material-icons">thumb_up</i></button>
+        </form>
+        <br>
       </div>
       {{/results}}
     </main>

@@ -6,5 +6,8 @@ module.exports = function(sequelize, DataTypes) {
     user_id: DataTypes.INTEGER
   }, {});
 
+  Message.associate = function(models) {
+    Message.belongsTo(models.User, {as: 'users', foreignKey: 'user_id'});
+};
   return Message;
 };
