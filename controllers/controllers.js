@@ -35,8 +35,9 @@ module.exports = {
     req.checkBody('password2', 'Passwords dont match').equals(req.body.passWord);
 
     req.getValidationResult().then(function(result) {
+      console.log(result);
       if (!result.isEmpty()) {
-        let error = result.toArray();
+        let error = result;
         res.render('signup', { error });
       } else {
         models.User.create({

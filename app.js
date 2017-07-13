@@ -19,12 +19,15 @@ app.set('view engine', 'mustache');
 app.set('views', './views');
 
 // set middleware
+app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
-app.use(express.static(path.join(__dirname, "public")));
+
+// session middleware
 app.use(session({ secret: 'top secret', resave: false, saveUninitialized: false }));
 
+// redirect middleware
 app.use(function(req, res, next){
   let pathname = parseurl(req).pathname;
   let sess = req.session;
