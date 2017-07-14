@@ -50,17 +50,21 @@
         <p>Post by <strong>{{users.name}}</strong></p>
         <p>{{createdAt}}</p>
 
-          {{#isItYou}}
+          {{#can_delete}}
             <form class="" action="/deletepost" method="post">
+              <input type="hidden" name="id" value="{{id}}">
               <button class="btn red darken-2" type="submit" name="button">delete</button>
             </form>
-          {{/isItYou}}
+          {{/can_delete}}
 
-          {{^isItYou}}
+          {{^can_delete}}
+          {{/can_delete}}
+
+
+
             <form class="" action="likeButton" method="post">
               <button class="btn" type="submit" name="button"><i class="material-icons">thumb_up</i></button>
             </form>
-          {{/isItYou}}
 
         <br>
       </div>

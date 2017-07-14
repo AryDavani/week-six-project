@@ -21,20 +21,28 @@ module.exports = {
   },
 
   home: function(req, res) {
-    console.log('session id is ' + req.session.userId);
+    // console.log('session id is ' + req.session.userId);
     let canDelete = '';
     models.Message.findAll({ include: [{
       model: models.User,
       as: 'users'
     }], order: [['createdAt', 'DESC']]
   }).then(function(results) {
+    // console.log(results);
     for (var i = 0; i < results.length; i++) {
-      console.log(results[i].user_id);
+      // console.log(results[i].user_id);
       if (results[i].user_id === req.session.userId) {
-
+        results[i].can_delete = 'true';
+        results[i].save().then(function(result) {
+          // console.log(result);
+        });
+      } else {
+        results[i].can_delete = '';
+        results[i].save().then(function(result) {
+          // console.log(result);
+        });
       }
     }
-
     res.render('home', {results: results, isItYou: canDelete });
     });
   },
@@ -95,6 +103,14 @@ module.exports = {
   // },
 
   deleteButton: function(req, res) {
-
+    console.log("DELETE BUTTON PRESSED");
+    let messageId = req.body.id;
+    models.Message.destroy({
+      where: {
+        id: messageId
+      }
+    }).then(function(message) {
+      res.redirect('/');
+    });
   }
 }
