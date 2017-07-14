@@ -21,12 +21,13 @@ module.exports = {
   },
 
   home: function(req, res) {
-    console.log('HOMEPAGE');
+
     models.Message.findAll({ include: [{
       model: models.User,
       as: 'users'
-    }]}).then(function(results) {
-    console.log(results);
+    }], order: [['createdAt', 'DESC']]
+  }).then(function(results) {
+    // context.results = results;
     res.render('home', {results});
     });
   },
@@ -71,31 +72,22 @@ module.exports = {
       console.log('please provide credentials');
       res.redirect('/user/login');
     }
-    // models.User.findOne({ where: { username: req.body.userName, password: req.body.passWord }}).then(function(result) {
-    //   if (result) {
-    //     let userPath = '/' + result.username;
-    //     req.session.userId = result.id;
-    //     req.session.name = result.name;
-    //     console.log('session id', req.session.userId);
-    //     res.redirect('detail/' + userPath);
-    //   } else {
-    //     console.log('error');
-    //     let error = ['wrong username/password'];
-    //     // res.redirect('/user/login');
-    //   }
-    // });
   },
 
   postButton: function(req, res) {
     models.Message.create({
       text: req.body.textarea,
       user_id: req.session.userId
-    }).then(function() {
+    }).then(function(message) {
       res.redirect('/');
     });
   },
 
-  likeButton: function(req, res) {
-
-  }
+  // likeButton: function(req, res) {
+  //
+  // },
+  //
+  // deleteButton: function(req, res) {
+  //
+  // }
 }

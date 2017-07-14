@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 
 // session middleware
-app.use(session({ secret: 'top secret', resave: false, saveUninitialized: true }));
+app.use(session({ secret: 'top secret', resave: false, saveUninitialized: false }));
 
 // redirect middleware WORKS but now login/signup forms dont?
 app.use(function(req, res, next){
