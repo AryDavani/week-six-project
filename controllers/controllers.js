@@ -43,7 +43,7 @@ module.exports = {
         });
       }
     }
-    res.render('home', {results: results, isItYou: canDelete });
+    res.render('home', {results: results});
     });
   },
 
@@ -84,7 +84,6 @@ module.exports = {
         res.redirect('/gabble/' + user.username);
       });
     } else {
-      console.log('please provide credentials');
       res.redirect('/user/login');
     }
   },

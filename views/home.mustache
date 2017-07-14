@@ -18,7 +18,7 @@
           <li><a href="/user/login">Login</a></li>
         </ul>
         <ul class="right hide-on-med-and-down">
-          <li><span class="first-name white-text">{{name}}</span></li>
+          <li><span class="first-name white-text">Welcome {{name}}</span></li>
           <li><i class="container material-icons small right">perm_identity</i></li>
         </ul>
       </div>
@@ -50,23 +50,24 @@
         <p>Post by <strong>{{users.name}}</strong></p>
         <p>{{createdAt}}</p>
 
+        <div class="flexIt justify-center">
+
           {{#can_delete}}
             <form class="" action="/deletepost" method="post">
               <input type="hidden" name="deleteId" value="{{id}}">
-              <button class="btn red darken-2" type="submit" name="button">delete</button>
+              <button class="btn buttons red darken-2" type="submit" name="button">delete</button>
             </form>
           {{/can_delete}}
 
           {{^can_delete}}
           {{/can_delete}}
 
-
-
             <form class="" action="/like" method="post">
               <input type="hidden" name="likeId" value="{{id}}">
-              <button class="btn" type="submit" name="button"><i class="material-icons">thumb_up</i></button>
+              <button class="btn buttons" type="submit" name="button"><i class="material-icons">thumb_up</i></button>
             </form>
-
+            <p class="valign-wrapper buttons green-text text-darken">Likes:</p>
+          </div>
         <br>
       </div>
       {{/results}}
