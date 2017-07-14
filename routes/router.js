@@ -15,4 +15,6 @@ module.exports = function(app) {
   app.post('/post', Controller.postButton);
   app.post('/logout', Controller.logoutButton);
   app.post('/deletepost', Controller.deleteButton);
+  app.post('/like', Controller.likeButton);
+
 }

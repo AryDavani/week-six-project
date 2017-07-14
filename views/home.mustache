@@ -52,7 +52,7 @@
 
           {{#can_delete}}
             <form class="" action="/deletepost" method="post">
-              <input type="hidden" name="id" value="{{id}}">
+              <input type="hidden" name="deleteId" value="{{id}}">
               <button class="btn red darken-2" type="submit" name="button">delete</button>
             </form>
           {{/can_delete}}
@@ -62,7 +62,8 @@
 
 
 
-            <form class="" action="likeButton" method="post">
+            <form class="" action="/like" method="post">
+              <input type="hidden" name="likeId" value="{{id}}">
               <button class="btn" type="submit" name="button"><i class="material-icons">thumb_up</i></button>
             </form>
 

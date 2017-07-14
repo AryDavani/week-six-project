@@ -98,13 +98,13 @@ module.exports = {
     });
   },
 
-  // likeButton: function(req, res) {
-  //
-  // },
+  likeButton: function(req, res) {
+    res.redirect('/');
+  },
 
   deleteButton: function(req, res) {
     console.log("DELETE BUTTON PRESSED");
-    let messageId = req.body.id;
+    let messageId = req.body.deleteId;
     models.Message.destroy({
       where: {
         id: messageId
