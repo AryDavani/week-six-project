@@ -21,14 +21,21 @@ module.exports = {
   },
 
   home: function(req, res) {
-
+    console.log('session id is ' + req.session.userId);
+    let canDelete = '';
     models.Message.findAll({ include: [{
       model: models.User,
       as: 'users'
     }], order: [['createdAt', 'DESC']]
   }).then(function(results) {
-    // context.results = results;
-    res.render('home', {results});
+    for (var i = 0; i < results.length; i++) {
+      console.log(results[i].user_id);
+      if (results[i].user_id === req.session.userId) {
+
+      }
+    }
+
+    res.render('home', {results: results, isItYou: canDelete });
     });
   },
 
@@ -86,8 +93,8 @@ module.exports = {
   // likeButton: function(req, res) {
   //
   // },
-  //
-  // deleteButton: function(req, res) {
-  //
-  // }
+
+  deleteButton: function(req, res) {
+
+  }
 }
